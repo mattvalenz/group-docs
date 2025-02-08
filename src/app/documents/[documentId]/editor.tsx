@@ -6,6 +6,7 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
+import Underline from "@tiptap/extension-underline";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import ImageResize from 'tiptap-extension-resize-image';
@@ -61,6 +62,7 @@ export const Editor = () => {
     extensions: [
       StarterKit,
       Image,
+      Underline,
       ImageResize,
       Table,
       TableCell,
