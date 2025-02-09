@@ -11,6 +11,7 @@ import {
   MessageSquarePlusIcon,
   PrinterIcon,
   Redo2Icon,
+  RemoveFormattingIcon,
   SpellCheckIcon,
   UnderlineIcon,
   Undo2Icon,
@@ -109,6 +110,12 @@ export const Toolbar = () => {
         icon:ListTodoIcon,
         onClick: () => editor?.chain().focus().toggleTaskList().run(),
         isActive: editor?.isActive("taskList")
+      },
+      {
+        label:"remove Formatting",
+        icon:RemoveFormattingIcon,
+        onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+        
       },
       
     ]
