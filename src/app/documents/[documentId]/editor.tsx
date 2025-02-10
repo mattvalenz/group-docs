@@ -5,12 +5,16 @@ import StarterKit from "@tiptap/starter-kit";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Table from "@tiptap/extension-table";
+import TextStyle from "@tiptap/extension-text-style";
 import TableCell from "@tiptap/extension-table-cell";
 import Underline from "@tiptap/extension-underline";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import ImageResize from 'tiptap-extension-resize-image';
 import Image from "@tiptap/extension-image";
+import FontFamily from '@tiptap/extension-font-family';
+import { Color } from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
 
 import { useEditorStore } from "@/store/use-editor-store";
 
@@ -24,7 +28,7 @@ export const Editor = () => {
         
     },
 
-    onDestroy(props){
+    onDestroy(){
       setEditor(null);
     },
     onUpdate({editor}) {
@@ -62,8 +66,14 @@ export const Editor = () => {
     extensions: [
       StarterKit,
       Image,
+      Color,
+      Highlight.configure(
+       { multicolor: true}
+      ),
       Underline,
       ImageResize,
+      FontFamily,
+      TextStyle,
       Table,
       TableCell,
       TableHeader,
