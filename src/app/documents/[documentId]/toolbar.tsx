@@ -15,6 +15,7 @@ import {
   Heading,
   HighlighterIcon,
   ItalicIcon,
+  Link2Icon,
   ListTodoIcon,
   LucideIcon,
   MessageSquarePlusIcon,
@@ -27,6 +28,38 @@ import {
 } from "lucide-react";
 import { type Level} from "@tiptap/extension-heading";
 import {type ColorResult, SketchPicker} from "react-color";
+import { useEditor } from "@tiptap/react";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const LinkButton = () => {
+  const { editor } = useEditorStore();
+  const [ value, setValue] = useState(editor?.getAttributes("link").href || "");
+
+  const onChange = (href: string) => {
+    editor?.chain().focus().setLink({href}).run();
+    setValue("");
+  };
+
+  return(
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+         <Link2Icon className="size-4"/> 
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-2.5 flex items-center gap-x-2 ">
+       <Input placeholder="Paste link"
+       value= {value}
+       onChange ={(e) => setValue(e.target.value)}/>
+       <Button onClick= { () => onChange(value)}>
+        Apply
+        </Button>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 const TextColorButton = () => {
   const {editor} = useEditorStore();
@@ -54,6 +87,7 @@ const TextColorButton = () => {
 const HighlightColorButton = () => {
   const {editor} = useEditorStore();
   
+  const value = editor?.getAttributes("highlight").color || "#FFFF"
 
   const onChange = (color: ColorResult) => {
     editor?.chain().focus().setHighlight({color: color.hex}).run();
@@ -67,7 +101,9 @@ const HighlightColorButton = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0 ">
-        <SketchPicker  onChange={onChange}/>
+        <SketchPicker  
+        color= {value}
+        onChange={onChange}/>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -292,7 +328,7 @@ export const Toolbar = () => {
       <TextColorButton/>
       <HighlightColorButton/>
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* TODO: Link*/}
+      <LinkButton/>
       {/* TODO: Image */}
       {/* TODO: Align */}
       {/* TODO: Line height */}
