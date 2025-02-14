@@ -51,6 +51,62 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+const FontSizeButton = () => {
+  const { editor } = useEditorStore();
+
+  const currentFontSize = editor?.getAttributes("textStyle").fontSize
+    ? editor?.getAttributes("textStyle").fontSize.replace("px", "")
+    : "16";
+
+  const [fontSize, setFontSize] = useState(currentFontSize);
+  const [inputValue, setInputValue] = useState(fontSize);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const updateFontSize = (newSize: string) => {
+    const size = parseInt(newSize);
+    if (!isNaN(size) && size > 0) {
+      editor?.chain().focus().setFontSize(`${size}px`).run();
+      setFontSize(newSize);
+      setInputValue(newSize);
+      setIsEditing(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement) => {
+    setInputValue(e.target.value);
+  }
+
+  const handleInputBar = () => {
+    updateFontSize(inputValue);
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>){
+    if (e.key === "Enter"){
+      e.preventDefault();
+      updateFontSize(inputValue);
+      editor?.commands.focus();
+    }
+  }
+
+  const increment = () => {
+    const newSize = parseInt(fontSize) +1 ;
+    updateFontSize(newSize.toString())
+  }
+
+  const decrement = () => {
+    const newSize = parseInt(fontSize) - 1 ;
+    if (newSize > 0) {
+      updateFontSize(newSize.toString())
+
+    }
+
+    updateFontSize(newSize.toString())
+  }
+  
+
+  return <div>Font Size</div>;
+};
+
 const ListButton = () => {
   const { editor } = useEditorStore();
 
@@ -59,16 +115,15 @@ const ListButton = () => {
       label: "Bullet List",
       icon: ListIcon,
       isActive: () => editor?.isActive("bulletList"),
-      onClick : () => editor?.chain().focus().toggleBulletList().run(),
+      onClick: () => editor?.chain().focus().toggleBulletList().run(),
     },
     {
       label: "Ordered List",
       icon: ListOrderedIcon,
       isActive: () => editor?.isActive("orderedList"),
-      onClick : () => editor?.chain().focus().toggleOrderedList().run(),
+      onClick: () => editor?.chain().focus().toggleOrderedList().run(),
     },
-    
-  ]
+  ];
 
   return (
     <DropdownMenu>
@@ -78,14 +133,16 @@ const ListButton = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1 ">
-        {lists.map(({label, icon: Icon, onClick, isActive})=> (
+        {lists.map(({ label, icon: Icon, onClick, isActive }) => (
           <button
-          key={label}
-          onClick={onClick}
-          className={cn("flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-            isActive() && "bg-neutral-200/80"
-          )}>
-            <Icon className="size-4"/>
+            key={label}
+            onClick={onClick}
+            className={cn(
+              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+              isActive() && "bg-neutral-200/80"
+            )}
+          >
+            <Icon className="size-4" />
             <span className="text-sm">{label}</span>
           </button>
         ))}
@@ -100,25 +157,25 @@ const AlignButton = () => {
   const alignments = [
     {
       label: "Align Left",
-      value:"left",
+      value: "left",
       icon: AlignLeftIcon,
     },
     {
       label: "Align Center",
-      value:"center",
+      value: "center",
       icon: AlignCenterIcon,
     },
     {
       label: "Align right",
-      value:"right",
+      value: "right",
       icon: AlignRightIcon,
     },
     {
       label: "Align Justify",
-      value:"justify",
+      value: "justify",
       icon: AlignJustifyIcon,
-    }
-  ]
+    },
+  ];
 
   return (
     <DropdownMenu>
@@ -128,14 +185,16 @@ const AlignButton = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1 ">
-        {alignments.map(({label, value, icon: Icon})=> (
+        {alignments.map(({ label, value, icon: Icon }) => (
           <button
-          key={value}
-          onClick={()=> editor?.chain().focus().setTextAlign(value).run()}
-          className={cn("flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-            editor?.isActive({texAlign: value}) && "bg-neutral-200/80"
-          )}>
-            <Icon className="size-4"/>
+            key={value}
+            onClick={() => editor?.chain().focus().setTextAlign(value).run()}
+            className={cn(
+              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+              editor?.isActive({ texAlign: value }) && "bg-neutral-200/80"
+            )}
+          >
+            <Icon className="size-4" />
             <span className="text-sm">{label}</span>
           </button>
         ))}
@@ -143,7 +202,6 @@ const AlignButton = () => {
     </DropdownMenu>
   );
 };
-
 
 const ImageButton = () => {
   const { editor } = useEditorStore();
@@ -213,9 +271,7 @@ const ImageButton = () => {
               }
             }}
           />
-          
         </DialogContent>
-        
       </Dialog>
     </>
   );
@@ -515,7 +571,7 @@ export const Toolbar = () => {
       <HeadingLevelButton />
 
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* TODO: Font size */}
+      <FontSizeButton />
 
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {sections[1].map((item) => (
@@ -526,9 +582,9 @@ export const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <LinkButton />
       <ImageButton />
-      <AlignButton/>
+      <AlignButton />
       {/* TODO: Line height */}
-      <ListButton/>
+      <ListButton />
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
