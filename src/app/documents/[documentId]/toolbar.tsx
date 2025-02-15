@@ -26,6 +26,7 @@ import {
   ListTodoIcon,
   LucideIcon,
   MessageSquarePlusIcon,
+  MinusIcon,
   PrinterIcon,
   Redo2Icon,
   RemoveFormattingIcon,
@@ -72,7 +73,7 @@ const FontSizeButton = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }
 
@@ -80,7 +81,7 @@ const FontSizeButton = () => {
     updateFontSize(inputValue);
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>){
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter"){
       e.preventDefault();
       updateFontSize(inputValue);
@@ -104,7 +105,11 @@ const FontSizeButton = () => {
   }
   
 
-  return <div>Font Size</div>;
+  return <div className="flex items-center gap-x-0.5">
+   <button>
+    <MinusIcon className="size-4"/>
+   </button>
+  </div>;
 };
 
 const ListButton = () => {
