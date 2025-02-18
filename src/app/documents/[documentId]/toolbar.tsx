@@ -652,7 +652,7 @@ export const Toolbar = () => {
       <LinkButton />
       <ImageButton />
       <AlignButton />
-      {/* TODO: Line height */}
+      <LineHeightButton/>
       <ListButton />
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
