@@ -16,7 +16,7 @@ import {
     MenubarSubTrigger,
     MenubarTrigger
 } from "@/components/ui/menubar"
-import { FileIcon, FileJsonIcon, FilePenIcon, FilePlusIcon, FileTextIcon, GlobeIcon, PrinterIcon, Redo2Icon, TextIcon, TrashIcon, Undo2Icon } from "lucide-react";
+import { BoldIcon, FileIcon, FileJsonIcon, FilePenIcon, FilePlusIcon, FileTextIcon, GlobeIcon, ItalicIcon, PrinterIcon, Redo2Icon, StrikethroughIcon, TextIcon, TrashIcon, UnderlineIcon, Undo2Icon } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
 
 export const Navbar = () => {
@@ -132,6 +132,25 @@ export const Navbar = () => {
                                     <TextIcon className="size-4 mr-2"/>
                                     Text
                                 </MenubarSubTrigger>
+                                <MenubarSubContent>
+                                    <MenubarItem>
+                                        <BoldIcon className="size-4 mr-2"/>
+                                        Bold
+                                    </MenubarItem>
+                                    <MenubarItem>
+                                        <ItalicIcon className="size-4 mr-2"/>
+                                        Italic
+                                    </MenubarItem>
+                                    <MenubarItem>
+                                        <UnderlineIcon className="size-4 mr-2"/>
+                                        Underline
+                                    </MenubarItem>
+                                    <MenubarItem>
+                                        <StrikethroughIcon className="size-4 mr-2"/>
+                                        Strikethrough
+                                    </MenubarItem>
+                                    
+                                </MenubarSubContent>
                             </MenubarSub>
                         </MenubarContent>
                     </MenubarMenu>
