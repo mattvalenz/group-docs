@@ -10,6 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { LoaderIcon } from "lucide-react";
+import { DocumentRow } from "./document-row";
 
 
 interface DocumentsTableProps{
