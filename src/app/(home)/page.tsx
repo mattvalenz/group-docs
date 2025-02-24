@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Navbar } from "./navbar";
-import { TemplateGallery } from "./templates-gallery";
+import { TemplatesGallery } from "./templates-gallery";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 
@@ -21,7 +21,7 @@ const Home = () => {
         <Navbar />
       </div>
       <div className="mt-16">
-     <TemplateGallery/>
+     <TemplatesGallery/>
      {documents?.map((document) => (
       <span key={document._id}> {document.title}</span>
      ))}

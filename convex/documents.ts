@@ -1,5 +1,5 @@
 import { ConvexError, v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const create = mutation({
   args: {
@@ -18,6 +18,8 @@ export const create = mutation({
       ownerId: user.subject,
       initialContent: args.initialContent,
     });
+    
+
   },
 });
 
