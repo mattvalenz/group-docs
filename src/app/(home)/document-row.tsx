@@ -5,21 +5,25 @@ import { Doc } from "../../../convex/_generated/dataModel";
 import { Building2Icon, CircleUserIcon } from "lucide-react";
 import { format } from "date-fns";
 import { DocumentMenu } from "./document-menu";
-
-
+import { useRouter } from "next/navigation";
 
 interface DocumentRowProps {
   document: Doc<"documents">;
 }
 
 export const DocumentRow = ({ document }: DocumentRowProps) => {
+  const router = useRouter();
 
-    const onNewTabClick = (id: string) => {
-         window.open(`/documents/${id}, "_blank"`);
+  const onNewTabClick = (id: string) => {
+    window.open(`/documents/${id}, "_blank"`);
+  };
 
-    }
+ 
+
   return (
-    <TableRow className="cursor-pointer">
+    <TableRow 
+    onClick={() => router.push(`/documents/${document._id}`)}
+    className="cursor-pointer">
       <TableCell className="w-[50px]">
         <SiGoogledocs className="size-6 fill-blue-500" />
       </TableCell>
@@ -35,10 +39,11 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
       <TableCell className="text-muted-foreground hidden md:table-cell">
         {format(new Date(document._creationTime), "MMM dd, yyyy")}
       </TableCell>
-      <DocumentMenu 
-      documentId={document._id}
-      title={document.title}
-      onNewTab={onNewTabClick}/>
+      <DocumentMenu
+        documentId={document._id}
+        title={document.title}
+        onNewTab={onNewTabClick}
+      />
     </TableRow>
   );
 };
