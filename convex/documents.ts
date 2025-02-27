@@ -40,9 +40,9 @@ export const get = query({
         .withSearchIndex("search_title", (q) =>
           q
             .search("title", search)
-            .eq("ownerId", user.subject)
-            .paginate(paginationOpts)
-        );
+            .eq("ownerId", user.subject)          
+        )
+        .paginate(paginationOpts);
     }
 
     return await ctx.db
