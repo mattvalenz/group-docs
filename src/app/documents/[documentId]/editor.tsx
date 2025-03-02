@@ -28,6 +28,8 @@ import { Threads } from "./threads";
 
 export const Editor = () => {
 
+
+  //* todo functionality**/
   const liveblocks = useLiveblocksExtension();
   const {setEditor} = useEditorStore()
 
