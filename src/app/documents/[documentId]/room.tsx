@@ -43,7 +43,16 @@ export function Room({ children }: { children: ReactNode }) {
           (userId) => users.find((user) => user.id === userId) ?? undefined
         )
       }}
-      resolveMentionSuggestions={() => []}
+      resolveMentionSuggestions={({text}) => {
+        let filteredUsers = users;
+        if (text){
+          filteredUsers = users.filter((user) => 
+          user.name?.toLowerCase().includes(text.toLowerCase())
+          );
+        }
+
+        return filteredUsers.map((user) => user.id)
+      }}
       resolveRoomsInfo={() => []}
     >
       <RoomProvider id={params.documentId as string}>
