@@ -32,13 +32,13 @@ const AvatarStack = () => {
         <div className="flex">
             {users.map(({connectionId, info}) => {
                 return(
-                    <Avatar key={connectionId} src="info.avatar" name={info.name} />
+                    <Avatar key={connectionId} src={info.avatar} name={info.name} />
                 )
             })}
 
         </div>
     </div>
-    <Separator/>
+    <Separator orientation="vertical"/>
     </>
   )
 };
