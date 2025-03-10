@@ -19,19 +19,26 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
 
   const mutate = useMutation(api.documents.updateById);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue =e.target.value;
+    setValue(newValue);
+    
+  }
+
   return (
     <div className="flex items-center gap-2">
       {isEditing ? (
         <form className="relative w-fit max-w-[50ch]">
           <span className="invisible whitespace-pre px-1.5 text-lg">
             {value || " "}
+            </span>
             <input
               ref={inputRef}
               value={value}
-              onChange={() => {}}
+              onChange={onChange}
               className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate"
             />
-          </span>
+          
         </form>
       ) : (
         <span
