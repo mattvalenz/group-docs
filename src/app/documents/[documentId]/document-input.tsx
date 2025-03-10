@@ -22,17 +22,29 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
   return (
     <div className="flex items-center gap-2">
       {isEditing ? (
-        <span className="invisible whitespace-pre px-1.5 text-lg">
+        <form className="relative w-fit max-w-[50ch]">
+          <span className="invisible whitespace-pre px-1.5 text-lg">
             {value || " "}
-            <input ref={inputRef}
-            value={value}
-            onChange={() => {}}
-            className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate"/>
-        </span>
+            <input
+              ref={inputRef}
+              value={value}
+              onChange={() => {}}
+              className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate"
+            />
+          </span>
+        </form>
       ) : (
-        <span className="text-lg px-1.5 cursor-pointer truncate">
-            {title}
-            </span>
+        <span
+          onClick={() => {
+            setIsEditing(true);
+            setTimeout(() => {
+              inputRef.current?.focus();
+            }, 0);
+          }}
+          className="text-lg px-1.5 cursor-pointer truncate"
+        >
+          {title}
+        </span>
       )}
 
       <BsCloudCheck />
