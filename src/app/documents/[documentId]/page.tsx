@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { preloadQuery, usePreloadedQuery } from "convex/nextjs";
+import { preloadQuery } from "convex/nextjs";
 
 import React from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
@@ -25,7 +25,9 @@ const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
     { token }
   )
 
-  return <Document />;
+
+
+  return <Document preloadedDocument={preloadedDocument}/>;
 };
 
 export default DocumentIdPage;

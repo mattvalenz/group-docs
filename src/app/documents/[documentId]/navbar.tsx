@@ -39,9 +39,13 @@ import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Avatars } from "./avatars";
 import { Inbox } from "./inbox";
+import { Doc } from "../../../../convex/_generated/dataModel";
 
+interface NavbarProps {
+  data: Doc<"documents">;
+}
 
-export const Navbar = () => {
+export const Navbar = ({data}: NavbarProps) => {
   const { editor } = useEditorStore();
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -60,7 +64,6 @@ export const Navbar = () => {
     a.click();
   };
 
-  
   const onSaveJSON = () => {
     if (!editor) return;
 
@@ -68,9 +71,8 @@ export const Navbar = () => {
     const blob = new Blob([JSON.stringify(content)], {
       type: "application/json",
     });
-    onDownload(blob, `document.json`); // todo: use document name
+    onDownload(blob, `${data.title}.json`); 
   };
-
 
   const onSaveHTML = () => {
     if (!editor) return;
@@ -79,7 +81,7 @@ export const Navbar = () => {
     const blob = new Blob([content], {
       type: "text/html",
     });
-    onDownload(blob, `document.html`); 
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveText = () => {
@@ -89,9 +91,8 @@ export const Navbar = () => {
     const blob = new Blob([JSON.stringify(content)], {
       type: "text/plain",
     });
-    onDownload(blob, `document.txt`); 
+    onDownload(blob, `${data.title}.txt`);
   };
-
 
   return (
     <nav className="flex items-center justify-between">
@@ -100,7 +101,7 @@ export const Navbar = () => {
           <Image src="/logo.svg" alt="Logo" width={36} height={36} />
         </Link>
         <div className="flex flex-col">
-          <DocumentInput />
+          <DocumentInput title={data.title} id={data.id}/>
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto">
               <MenubarMenu>
@@ -122,7 +123,11 @@ export const Navbar = () => {
                         <GlobeIcon className="size-4 mr-2" />
                         HTML
                       </MenubarItem>
-                      <MenubarItem onClick={()=> {window.print()}}>
+                      <MenubarItem
+                        onClick={() => {
+                          window.print();
+                        }}
+                      >
                         <BsFilePdf className="size-4 mr-2" />
                         PDF
                       </MenubarItem>
@@ -265,15 +270,15 @@ export const Navbar = () => {
       </div>
       <div className="flex gap-3 items-center pl-6">
         <Avatars />
-        <Inbox/>
-                <OrganizationSwitcher
-                afterCreateOrganizationUrl="/"
-                afterLeaveOrganizationUrl="/"
-                afterSelectOrganizationUrl="/"
-                afterSelectPersonalUrl=""
-                />
-            <UserButton/>
-            </div>
+        <Inbox />
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl=""
+        />
+        <UserButton />
+      </div>
     </nav>
   );
 };
