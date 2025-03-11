@@ -26,14 +26,21 @@ import { useEditorStore } from "@/store/use-editor-store";
 import { Ruler } from "./ruler";
 import { Threads } from "./threads";
 
+interface EditorProps {
+  initialContent?: string | undefined;
+  offlineSupport_experimental: true,
+}
 
-export const Editor = () => {
+
+export const Editor = ({initialContent}: EditorProps) => {
 
 
   const leftMargin = useStorage((root) => root.leftMargin)
   const rightMargin = useStorage((root) => root.rightMargin)
 
-  const liveblocks = useLiveblocksExtension();
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+  });
   const {setEditor} = useEditorStore()
 
   const editor = useEditor({
