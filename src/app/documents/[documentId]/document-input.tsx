@@ -24,6 +24,8 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
   const debouncedUpdate = useDebounce((newValue: string) => {
     if (newValue === title) return;
 
+
+
     setIsPending(true)
     mutate({id, title:newValue})
     .then(() => toast.success("Document updated"))
