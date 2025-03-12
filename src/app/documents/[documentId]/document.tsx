@@ -24,7 +24,7 @@ export const Document =  ({ preloadedDocument }: DocumentProps) => {
       </div>
       <div className="pt-[116px] print:pt-0">
        
-          <Editor initialContent={document.initialContent} />
+          <Editor initialContent={document.initialContent} offlineSupport_experimental={true} />
         
       </div>
     </div>
