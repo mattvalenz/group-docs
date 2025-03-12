@@ -16,7 +16,7 @@ import {
   AlignRightIcon,
   BoldIcon,
   ChevronDownIcon,
-  Heading,
+  
   HighlighterIcon,
   ImageIcon,
   ItalicIcon,
@@ -42,14 +42,13 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
 import { type Level } from "@tiptap/extension-heading";
 import { type ColorResult, SketchPicker } from "react-color";
-import { useEditor } from "@tiptap/react";
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
